@@ -2,6 +2,8 @@ import express from 'express';
 import handlebars from 'express-handlebars';
 import {Server} from 'socket.io';
 import mongoose from 'mongoose';
+import dotenv from "dotenv";
+import connectMongoDB from './config/db.js';
 
 import productRouter from './routes/productRouter.js';
 import cartRouter from './routes/cartRouter.js';
@@ -9,10 +11,13 @@ import viewsRouter from './routes/viewsRouter.js';
 import __dirname from './utils/constantsUtil.js';
 import websocket from './websocket.js';
 
-const app = express();
+dotenv.config();
 
-const uri = 'mongodb+srv://Rauszack:Larausia34@coder-cluster0.14hcddr.mongodb.net/?appName=Coder-Cluster0';
-mongoose.connect(uri);
+const app = express();
+app.use(express.json());
+const PORT = process.env.PORT; 
+
+connectMongoDB();
 
 //Handlebars Config
 app.engine('handlebars', handlebars.engine());
@@ -29,7 +34,6 @@ app.use('/api/products', productRouter);
 app.use('/api/carts', cartRouter);
 app.use('/', viewsRouter);
 
-const PORT = 8080;
 const httpServer = app.listen(PORT, () => {
     console.log(`Start server in PORT ${PORT}`);
 });
