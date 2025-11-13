@@ -47,6 +47,7 @@ app.use('/api/products', productRouter);
 app.use('/api/carts', cartRouter);
 app.use('/', viewsRouter);
 app.use('/api/cookies', cookieRoutes);
+app.use('/api/sessions', session);
 
 const httpServer = app.listen(PORT, () => {
     console.log(`Start server in PORT ${PORT}`);
