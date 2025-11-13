@@ -1,9 +1,9 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import cookieRoutes from './routes/cookieRoutes.js';
+import cookieRouter from './routes/cookieRouter.js';
 import handlebars from 'express-handlebars';
 import {Server} from 'socket.io';
-import mongoose from 'mongoose';
+import MongoStore from 'connect-mongo';
 import dotenv from "dotenv";
 import connectMongoDB from './config/db.js';
 
@@ -39,14 +39,19 @@ app.use(session({
     cookie: { 
         maxAge: 60000, 
         httpOnly: true
-    }
+    },
+    store: MongoStore.create({
+        mongoUrl: process.env.URI_MONGODB,
+        dbName: 'Coder-Cluster0',
+        ttl: 60 * 10
+    })
 }));
 
 //Routers
 app.use('/api/products', productRouter);
 app.use('/api/carts', cartRouter);
 app.use('/', viewsRouter);
-app.use('/api/cookies', cookieRoutes);
+app.use('/api/cookies', cookieRouter);
 app.use('/api/sessions', session);
 
 const httpServer = app.listen(PORT, () => {
