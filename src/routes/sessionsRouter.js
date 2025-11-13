@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { UsuariosManagerMongo } from '../dao/UsuariosManagerMONGO.js';
-import { generaHash, validaPass } from '../utils.js';
+import { UsuariosManagerMongo } from '../dao/models/usuariosManagerMONGO.js';
+import { generaHash, validaPass } from '../utils/util.js';
+
 
 const router = Router();
-
 router.post('/register',async(req,res)=>{
     let {nombre, email, password}=req.body
     // validaciones

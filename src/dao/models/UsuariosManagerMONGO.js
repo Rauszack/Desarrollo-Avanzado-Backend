@@ -1,4 +1,4 @@
-import { usuariosModelo } from "./models/usuarios.medelo.js";
+import { usuariosModelo } from "./usuarios.model.js";
 
 export class UsuariosManagerMongo{
 
