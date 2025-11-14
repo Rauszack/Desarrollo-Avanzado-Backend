@@ -8,7 +8,7 @@ import {Server} from 'socket.io';
 import MongoStore from 'connect-mongo';
 import dotenv from "dotenv";
 import connectMongoDB from './config/db.js';
-import pastport from 'passport';
+import passport from 'passport';
 import { initPassport } from './config/passport.config.js';
 
 import productRouter from './routes/productRouter.js';
@@ -17,7 +17,6 @@ import viewsRouter from './routes/viewsRouter.js';
 import __dirname from './utils/constantsUtil.js';
 import websocket from './websocket.js'
 import session from 'express-session';
-import passport from 'passport';
 
 dotenv.config();
 
