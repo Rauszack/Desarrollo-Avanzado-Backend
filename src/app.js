@@ -9,7 +9,7 @@ import MongoStore from 'connect-mongo';
 import dotenv from "dotenv";
 import connectMongoDB from './config/db.js';
 import passport from 'passport';
-import { initPassport } from './config/passport.config.js';
+import initializePassport from './config/passport.config.js';
 
 import productRouter from './routes/productRouter.js';
 import cartRouter from './routes/cartRouter.js';
@@ -52,7 +52,7 @@ app.use(session({
     })
 }));
 
-initPassport()
+initializePassport()
 app.use(passport.initialize())
 app.use(passport.session())  // SOLO SI USO Sessions
 

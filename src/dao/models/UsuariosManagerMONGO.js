@@ -1,4 +1,4 @@
-import { usuariosModelo } from "./usuarios.model.js";
+import usuariosModelo from "./usuarios.modelo.js";
 
 export class UsuariosManagerMongo{
 
