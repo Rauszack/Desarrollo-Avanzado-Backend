@@ -1,13 +1,13 @@
 import passport from "passport"
 import usuariosModelo from "../dao/models/usuarios.modelo.js"
-import jwt from "passport-jwt"
+import passportjwt from "passport-jwt"
+import jwt from "jsonwebtoken"
 
 const JWTStrategy = jwt.Strategy
 const ExtractJWT = jwt.ExtractJwt
 
-const cookieExtractor = req => {
+const buscaToken = req => {
     let token = null;
-    console.log(req.haders)
     if (req && req.cookies) {
         token = req.authorization.split('')[1]
     }
@@ -15,17 +15,20 @@ const cookieExtractor = req => {
 }
 
 const initializePassport = () => {
-
-    passport.use('jwt', new JWTStrategy({
-        jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
-        secretOrKey: 'coderClaveSecreta'
-    }, async (jwt_payload, done) => {
-        try {
-            return done(null, jwt_payload)
-        } catch (error) {
-            return done(error)
+  passport.use("current", new passportjwt.Strategy(
+        {
+            secretOrKey: "CoderCoder123", 
+            jwtFromRequest: passportjwt.ExtractJwt.fromExtractors([buscaToken])
+        }, 
+        async(contenidoToken, done)=>{
+            try {
+                return done(null, contenidoToken)
+            } catch (error) {
+                return done(error)
+            }
         }
-    }))
+    ))
+
 
     passport.serializeUser((user, done) => {
         done(null, user._id)

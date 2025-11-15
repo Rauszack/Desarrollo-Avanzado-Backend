@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import fs from 'fs';
 import cookieParser from "cookie-parser";
 import cookieRouter from "./routes/cookieRouter.js";
 import handlebars from "express-handlebars";
@@ -15,6 +16,7 @@ import cartRouter from "./routes/cartRouter.js";
 import viewsRouter from "./routes/viewsRouter.js";
 import __dirname from "./utils/constantsUtil.js";
 import websocket from "./websocket.js";
+import { Router } from "express";
 
 dotenv.config();
 
@@ -23,10 +25,17 @@ const PORT = process.env.PORT;
 
 connectMongoDB();
 
+
+let usuarios=[]
+if(fs.existsSync('./src/usuarios.json')){
+    usuarios=JSON.parse(fs.readFileSync('./src/usuarios.json','utf-8'))
+}
+
+
 const engine = handlebars.engine;
 //Handlebars Config
 app.engine("handlebars", handlebars.engine());
-app.set("views", __dirname + "/../views");
+app.set("views", __dirname + "./views");
 app.set("view engine", "handlebars");
 
 //Middlewares
@@ -34,14 +43,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser(process.env.COOKIE_SECRET || "fallbackSecret"));
-app.use;
 
 initializePassport();
 app.use(passport.initialize());
-
-app.engine("handlebars", engine());
-app.set("view engine", "handlebars");
-app.set("views", path.join(__dirname, "/views"));
 
 //Routers
 app.use("/api/products", productRouter);
@@ -49,7 +53,7 @@ app.use("/api/carts", cartRouter);
 app.use("/", viewsRouter);
 app.use("/api/cookies", cookieRouter);
 
-// Ruta de prueba básica
+// Ruta de prueba básica (este endpoint conecta)
 app.get("/api/cookies", (req, res) => {
   res.json({ message: "Cookies endpoint working!" });
 });

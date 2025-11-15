@@ -1,32 +1,24 @@
 import jwt from "jsonwebtoken";
 
-export const auth = (rolesPermitidos = []) => {
+const auth = (rolesPermitidos = []) => {
   return (req, res, next) => {
     const authHeader = req.headers?.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ error: "No hay usuarios autenticados" });
+      return res.status(401).json({ error: "No hay usuarios autenticados", detalle:'haga login' });
     }
 
     const token = authHeader.split(" ")[1];
-
+    let usuario
     try {
-      const payload = jwt.verify(token, "CoderCoder123");
-      if (rolesPermitidos.length > 0) {
-        if (!req.user.role || !rolesPermitidos.includes(req.user.role)) {
-          return res
-            .status(403)
-            .json({ error: "No tienes permisos suficientes" });
-        }
-      }
-
-      next();
+        usuario=jwt.verify(token, "CoderCoder123")
+        req.user=usuario
     } catch (error) {
-      if (error.name === "JsonWebTokenError") {
-        return res.status(401).json({ error: "Token inválido" });
-      } else if (error.name === "TokenExpiredError") {
-        return res.status(401).json({ error: "Token expirado" });
-      }
-      return res.status(500).json({ error: "Error al autenticar token" });
+        res.setHeader('Content-Type','application/json');
+        return res.status(401).json({error:`Credenciales invalidas`, detalle: error.message})
     }
-  };
+
+    next()
+}
 };
+
+export default auth;
