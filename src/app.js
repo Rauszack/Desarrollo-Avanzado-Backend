@@ -31,8 +31,6 @@ if(fs.existsSync('./src/usuarios.json')){
     usuarios=JSON.parse(fs.readFileSync('./src/usuarios.json','utf-8'))
 }
 
-
-const engine = handlebars.engine;
 //Handlebars Config
 app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "./views");

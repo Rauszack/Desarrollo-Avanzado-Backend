@@ -2,6 +2,7 @@ import { Router } from "express";
 import passport from "passport";
 import authentization from "../middleware/auth.js";
 import jwt from "jsonwebtoken";
+import { authUser } from "../middleware/auth.js";
 
 const router = Router();
 
@@ -41,15 +42,11 @@ router.get("/error", (req, res) => {
     .json({ error: "No hay usuarios autenticados", detalle: "haga login" });
 });
 
-router.get(
-  "/usuario",
-  passport.authenticate("current", { session: false }),
-  (req, res) => {
-    res.setHeader("Content-Type", "application/json");
-    res.status(200).json({
-      mensaje: "Perfil usuario " + req.user.nombre,
-    });
-  }
-);
+router.get("/admin", passportCall("current"), auth(), (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.status(200).json({
+    mensaje: "Perfil usuario " + req.user.nombre,
+  });
+});
 
 export default router;
