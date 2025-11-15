@@ -1,5 +1,4 @@
 import passport from "passport"
-import usuariosModelo from "../dao/models/usuarios.modelo.js"
 import passportjwt from "passport-jwt"
 import jwt from "jsonwebtoken"
 
@@ -22,22 +21,15 @@ const initializePassport = () => {
         }, 
         async(contenidoToken, done)=>{
             try {
+            if(contenidoToken.nombre=="Martin"){
+                return done(null, false, {message:"El usuario Martin esta bloqueado"})
+            }                
                 return done(null, contenidoToken)
             } catch (error) {
                 return done(error)
             }
         }
     ))
-
-
-    passport.serializeUser((user, done) => {
-        done(null, user._id)
-    })
-
-    passport.deserializeUser(async (id, done) => { 
-        let user = await userService.getById(id)
-        done(null, user)
-    })
-}
+}  
 
 export default initializePassport
