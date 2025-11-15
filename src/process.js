@@ -7,8 +7,7 @@ console.log(`s.o.`, process.platform)
 
 console.log(process.argv)
 
-// let [rutaNode, rutaScritp, ...argumentos]=process.argv   // ... son aquí el operador rest
-let [ , , ...argumentos]=process.argv   // ... son aquí el operador rest
+let [ , , ...argumentos]=process.argv   
 
 let indicePort=argumentos.findIndex(a=>a=="--port")
 if(indicePort==-1){
@@ -19,7 +18,6 @@ if(indicePort==-1){
 const PORT=argumentos[indicePort+1]
 console.log(`Server running on port ${PORT}`)
 
-// commander
 
 console.log("variables de entorno:", process.env)
 console.log("Clave:", process.env.PRUEBA_SECRET)
