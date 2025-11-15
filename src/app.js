@@ -38,7 +38,6 @@ app.use;
 
 initializePassport();
 app.use(passport.initialize());
-app.use(passport.session());
 
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
