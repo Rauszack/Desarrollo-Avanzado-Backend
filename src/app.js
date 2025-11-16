@@ -16,7 +16,7 @@ import cartRouter from "./routes/cartRouter.js";
 import viewsRouter from "./routes/viewsRouter.js";
 import __dirname from "./utils/constantsUtil.js";
 import websocket from "./websocket.js";
-import { Router } from "express";
+import UsersRouter from "./routes/usersRouter.js";
 
 dotenv.config();
 
@@ -30,6 +30,10 @@ let usuarios=[]
 if(fs.existsSync('./src/usuarios.json')){
     usuarios=JSON.parse(fs.readFileSync('./src/usuarios.json','utf-8'))
 }
+
+const usersRouter = new UsersRouter().getRouter();
+
+app.use('/api/users', usersRouter); 
 
 //Handlebars Config
 app.engine("handlebars", handlebars.engine());
