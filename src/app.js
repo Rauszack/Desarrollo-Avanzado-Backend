@@ -5,11 +5,11 @@ import cookieParser from "cookie-parser";
 import cookieRouter from "./routes/cookieRouter.js";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
-import MongoStore from "connect-mongo";
 import dotenv from "dotenv";
 import connectMongoDB from "./config/db.js";
 import passport from "passport";
 import initializePassport from "./config/passport.config.js";
+import { router as petsRouter } from "./routes/petsRouter.js";
 
 import productRouter from "./routes/productRouter.js";
 import cartRouter from "./routes/cartRouter.js";
@@ -54,6 +54,8 @@ app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
 app.use("/", viewsRouter);
 app.use("/api/cookies", cookieRouter);
+app.use("/api/pets", petsRouter);
+app.use("/api/users", usersRouter);
 
 // Ruta de prueba básica (este endpoint conecta)
 app.get("/api/cookies", (req, res) => {

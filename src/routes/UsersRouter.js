@@ -1,4 +1,4 @@
-import CustomRouter from './CustomRouter.js';
+import CustomRouter from './customRouter.js';
 
 class UsersRouter extends CustomRouter{
     init(){
