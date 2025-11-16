@@ -17,6 +17,7 @@ import viewsRouter from "./routes/viewsRouter.js";
 import __dirname from "./utils/constantsUtil.js";
 import websocket from "./websocket.js";
 import UsersRouter from "./routes/usersRouter.js";
+import cors from "cors";
 
 dotenv.config();
 
@@ -43,6 +44,7 @@ app.set("view engine", "handlebars");
 //Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser(process.env.COOKIE_SECRET || "fallbackSecret"));
 
