@@ -1,3 +1,5 @@
+import { ProductService } from "../services/ProductService.js";
+
 class ProductController {
   static getAllProducts = async (req, res) => {
     try {

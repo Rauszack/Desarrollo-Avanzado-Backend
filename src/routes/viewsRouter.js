@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { productDBManager } from "../dao/productDBManager.js";
-import { cartDBManager } from "../dao/cartDBManager.js";
+import { productMongoDAO } from "../dao/productMongoDAO.js";
+import { cartMongoDAO } from "../dao/cartMongoDAO.js";
 import  viewsController  from "../controller/views.controller.js";
 
 const router = Router();
-const ProductService = new productDBManager();
-const CartService = new cartDBManager(ProductService);
+const ProductService = new productMongoDAO();
+const CartService = new cartMongoDAO(ProductService);
 
 router.get("/products", viewsController.getAllProducts);
 

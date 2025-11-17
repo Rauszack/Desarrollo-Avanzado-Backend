@@ -1,6 +1,6 @@
-import { cartModel } from "./models/cartModel.js";
+import { cartModel } from "./models/cart.model.js";
 
-class cartDBManager {
+class cartMongoDAO {
 
     constructor(productDBManager) {
         this.productDBManager = productDBManager;
@@ -112,4 +112,4 @@ class cartDBManager {
     }
 }
 
-export { cartDBManager };
+export { cartMongoDAO };

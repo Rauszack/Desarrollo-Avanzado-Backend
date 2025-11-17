@@ -17,4 +17,4 @@ class cookieController {
 }
 }
 
-    export default cookieController;
+export default cookieController;
